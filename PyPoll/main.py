@@ -5,7 +5,8 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
     csvreader = csv.reader(csvfile, delimiter=',') #pass the csvfile object to a new variable, csvreader
     csv_header = next(csvreader) #skipping the header so we get the correct count of rows
     initialCandidateList = ["Khan", "Correy", "Li", "O'Tooley"] #populating list with the initial known candidates
-    candidates = { initialCandidateList[0]:0, initialCandidateList[1]:0, initialCandidateList[2]:0, initialCandidateList[3]:0 } #storing the list of candidate names in a dictionary so I can map vote count to candidate
+    #storing the list of candidate names in a dictionary so I can map vote count to candidate. starting all candidates at 0 votes
+    candidates = { initialCandidateList[0]:0, initialCandidateList[1]:0, initialCandidateList[2]:0, initialCandidateList[3]:0 }
     rowCounter = 0
 
     for row in csvreader:#Read each row of data after the header
@@ -13,7 +14,7 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
         #if the candidate is not already in initialCandidateList (is a candidate which has not recieved a vote yet) then append this candidate to the list
         if row[2] not in initialCandidateList:
             initialCandidateList.append(row[2])
-        if row[2] == initialCandidateList[0]:
+        if row[2] == initialCandidateList[0]:#if the CSV "Candidate" column for this row matches one of our candidates, give that candidate a vote
             candidates[initialCandidateList[0]]+=1
         elif row[2] == initialCandidateList[1]:
             candidates[initialCandidateList[1]]+=1
@@ -27,6 +28,12 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
     print(f"Total Votes: {rowCounter}") #each row is a vote so row count is equal to the number of votes
     print("-------------------------")
     print (candidates)
+
+    #with dictionaries you cannot look up a key by a value, so using a for loop to map the key and value pairs of the dictionary together 
+    #to allow searching in the opposite direction (searching for a key by a known value)
+    for candidateName, voteCount in candidates.items():
+        if voteCount == max(candidates[initialCandidateList[0]], candidates[initialCandidateList[1]], candidates[initialCandidateList[2]], candidates[initialCandidateList[3]]):
+            print(f"Winner: {candidateName}")
 
 #I will reuse this function when I am closer to being done with the code
 # def GenerateResults(resultType):#function to print the results to terminal or export the results to a text file
