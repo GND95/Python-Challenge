@@ -33,12 +33,15 @@ with open(filePath) as csvfile: #open the path to the CSV file as a new object
     #getting the index of the max value from the Amounts list and using that value as the index for the Months list since they should be 
     #at the same position since they correspond to the same row in the CSV
     maxIncreaseMonth = monthlyChangeMonth[monthlyChangeAmount.index(max(monthlyChangeAmount))]
-    minIncreaseMonth = monthlyChangeMonth[monthlyChangeAmount.index(min(monthlyChangeAmount))]  
+    minIncreaseMonth = monthlyChangeMonth[monthlyChangeAmount.index(min(monthlyChangeAmount))]
 
-    print(f"Total Months: {rowCounter}")
-    print(f"Total: ${total}")
-    print(f"Average Change: ${avgChange}")
-    print(f"Greatest Increase in Profits: {maxIncreaseMonth} (${maxIncreaseAmount})")
-    print(f"Greatest Decrease in Profits: {minIncreaseMonth} (${minIncreaseAmount})")
+def GenerateResults(resultType):#function to print the results to terminal or export the results to a text file
+    if (resultType == "print"):#print results to terminal
+        print(f"Total Months: {rowCounter}\nTotal: ${total}\nAverage Change: ${avgChange}\nGreatest Increase in Profits: {maxIncreaseMonth} (${maxIncreaseAmount})\nGreatest Decrease in Profits: {minIncreaseMonth} (${minIncreaseAmount})")
+    elif(resultType == "file"):#export the same information to a text file
+        output_path = os.path.join("output", "financialResults.txt")
+        with open(output_path, 'w') as txtFile:
+            txtFile.write(f"Total Months: {rowCounter}\nTotal: ${total}\nAverage Change: ${avgChange}\nGreatest Increase in Profits: {maxIncreaseMonth} (${maxIncreaseAmount})\nGreatest Decrease in Profits: {minIncreaseMonth} (${minIncreaseAmount})")
 
-    #export the results to a text file
+GenerateResults("print")
+GenerateResults("file")
