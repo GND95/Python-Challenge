@@ -31,7 +31,7 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
     #with dictionaries you cannot look up a key by a value, so using a for loop to map the key and value pairs of the dictionary together 
     #to allow searching in the opposite direction (searching for a key by a known value)
     for candidateName, voteCount in candidates.items():
-        print(f"{candidateName}: {voteCount}")
+        print(f"{candidateName}: {round((voteCount/rowCounter)*100, 1)}% ({voteCount})")
         if voteCount == max(candidates[initialCandidateList[0]], candidates[initialCandidateList[1]], candidates[initialCandidateList[2]], candidates[initialCandidateList[3]]):
             winningCandidate = candidateName #creating a variable to keep track of the winner so I can print that data when I'm outside the for loop
     print("-------------------------")
