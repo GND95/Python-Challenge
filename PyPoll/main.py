@@ -27,13 +27,16 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
     print("-------------------------")
     print(f"Total Votes: {rowCounter}") #each row is a vote so row count is equal to the number of votes
     print("-------------------------")
-    print (candidates)
 
     #with dictionaries you cannot look up a key by a value, so using a for loop to map the key and value pairs of the dictionary together 
     #to allow searching in the opposite direction (searching for a key by a known value)
     for candidateName, voteCount in candidates.items():
+        print(f"{candidateName}: {voteCount}")
         if voteCount == max(candidates[initialCandidateList[0]], candidates[initialCandidateList[1]], candidates[initialCandidateList[2]], candidates[initialCandidateList[3]]):
-            print(f"Winner: {candidateName}")
+            winningCandidate = candidateName #creating a variable to keep track of the winner so I can print that data when I'm outside the for loop
+    print("-------------------------")
+    print(f"Winner: {winningCandidate}")
+    print("-------------------------")
 
 #I will reuse this function when I am closer to being done with the code
 # def GenerateResults(resultType):#function to print the results to terminal or export the results to a text file
