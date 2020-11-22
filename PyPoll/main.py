@@ -4,7 +4,7 @@ filePath = os.path.join('Resources', 'election_data.csv')#import csv block of co
 with open(filePath) as csvfile:#open the path to the CSV file as a new object
     csvreader = csv.reader(csvfile, delimiter=',') #pass the csvfile object to a new variable, csvreader
     csv_header = next(csvreader) #skipping the header so we get the correct count of rows
-    initialCandidateList = ["Khan", "Correy", "Li", "O'Tooley"] #populating list with the initial known candidates
+    initialCandidateList, electionResults = ["Khan", "Correy", "Li", "O'Tooley"], [] #populating list with the initial known candidates. creating new empty list for electionResults.
     #storing the list of candidate names in a dictionary so I can map vote count to candidate. starting all candidates at 0 votes
     candidates = { initialCandidateList[0]:0, initialCandidateList[1]:0, initialCandidateList[2]:0, initialCandidateList[3]:0 }
     rowCounter = 0
@@ -23,29 +23,26 @@ with open(filePath) as csvfile:#open the path to the CSV file as a new object
         elif row[2] == initialCandidateList[3]:
             candidates[initialCandidateList[3]]+=1
 
-    print("Election Results")
-    print("-------------------------")
-    print(f"Total Votes: {rowCounter}") #each row is a vote so row count is equal to the number of votes
-    print("-------------------------")
+    print(f"Election Results\n-------------------------\nTotal Votes: {rowCounter}\n-------------------------")#each row is a vote so row count is equal to the number of votes
 
-    #with dictionaries you cannot look up a key by a value, so using a for loop to map the key and value pairs of the dictionary together 
-    #to allow searching in the opposite direction (searching for a key by a known value)
-    for candidateName, voteCount in candidates.items():
-        print(f"{candidateName}: {round((voteCount/rowCounter)*100, 1)}% ({voteCount})")
-        if voteCount == max(candidates[initialCandidateList[0]], candidates[initialCandidateList[1]], candidates[initialCandidateList[2]], candidates[initialCandidateList[3]]):
-            winningCandidate = candidateName #creating a variable to keep track of the winner so I can print that data when I'm outside the for loop
-    print("-------------------------")
-    print(f"Winner: {winningCandidate}")
-    print("-------------------------")
+    def GenerateResults():#using a function so I can both write to a file and print the results to terminal without having to repeat my code
+        #with dictionaries you cannot look up a key by a value, so using a for loop to map the key and value pairs of the dictionary together 
+        #to allow searching in the opposite direction (searching for a key by a known value)
+        for candidateName, voteCount in candidates.items():
+            #store the candidate name, the percent of the total votes that candidate received, and the actual number of votes that candidate received
+            electionResults.append((f"{candidateName}: {round((voteCount/rowCounter)*100, 1)}% ({voteCount})"))
+            if voteCount == max(candidates[initialCandidateList[0]], candidates[initialCandidateList[1]], candidates[initialCandidateList[2]], candidates[initialCandidateList[3]]):
+                winningCandidate = candidateName #creating a variable to keep track of the winner so I can print that data when I'm outside the for loop
+        #return the results of the election for all the candidates and list the winner.
+        return (f"{electionResults[0]}\n{electionResults[1]}\n{electionResults[2]}\n{electionResults[3]}\n-------------------------\nWinner: {winningCandidate}\n-------------------------")
 
-#I will reuse this function when I am closer to being done with the code
-# def GenerateResults(resultType):#function to print the results to terminal or export the results to a text file
-#     if (resultType == "print"):#print results to terminal
-#         print(f"")
-#     elif(resultType == "file"):#export the same information to a text file
-#         output_path = os.path.join("output", "pollResults.txt")
-#         with open(output_path, 'w') as txtFile:
-#             txtFile.write(f"")
+def OutputResults(resultType):#function to print the results to terminal or export the results to a text file
+    if (resultType == "print"):#print results to terminal
+        print(GenerateResults())
+    elif(resultType == "file"):#export the same information to a text file
+        output_path = os.path.join("output", "pollResults.txt")
+        with open(output_path, 'w') as txtFile:
+            txtFile.write(GenerateResults())
 
-# GenerateResults("print")
-# GenerateResults("file")
+OutputResults("print")
+OutputResults("file")
