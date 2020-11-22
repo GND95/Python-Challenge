@@ -1,5 +1,4 @@
-# Python-Challenge
-**Data Analysis in Python without 3rd party libraries.**
+Data Analysis in Python without 3rd party libraries.
 # PyBank
 Created a Python script for analyzing financial records from a CSV file.</br>
 **The script calculates the following:**
