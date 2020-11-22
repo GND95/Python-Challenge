@@ -1,6 +1,8 @@
-Data Analysis in Python without 3rd party libraries.
+**Data Analysis in Python without 3rd party libraries.**
 # PyBank
 Created a Python script for analyzing financial records from a CSV file.</br>
+Example of raw data from CSV:</br>
+![PyBank Raw CSV Data](/PyBank/Images/1.png)<br/>
 **The script calculates the following:**
 * The total number of months included in the dataset
 * The net total amount of "Profit/Losses" over the entire period
@@ -16,6 +18,8 @@ Greatest Increase in Profits: Feb-2012 ($1926159)
 Greatest Decrease in Profits: Sep-2013 ($-2196167)</pre> 
 # PyPoll
 Created a Python script for analyzing the votes for election/polling records from a 1 million+ row CSV file.</br>
+Example of raw data from CSV:</br>
+![PyPoll Raw CSV Data](/PyPoll/Images/1.png)<br/>
 **The script calculates the following:**
 * The total number of votes cast
 * A complete list of candidates who received votes
